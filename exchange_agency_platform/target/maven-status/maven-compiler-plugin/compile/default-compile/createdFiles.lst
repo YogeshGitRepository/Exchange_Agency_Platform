@@ -1,0 +1,9 @@
+com\exchangeagency\dao\ItemDAO.class
+com\exchangeagency\utils\Validation.class
+com\exchangeagency\controller\UpdateItemServlet.class
+com\exchangeagency\model\Item.class
+com\exchangeagency\dao\DatabaseConnection.class
+com\exchangeagency\controller\AddItemServlet.class
+com\exchangeagency\controller\ItemServlet.class
+com\exchangeagency\weka\WekaModelTrainer.class
+com\exchangeagency\controller\ListItemsServlet.class

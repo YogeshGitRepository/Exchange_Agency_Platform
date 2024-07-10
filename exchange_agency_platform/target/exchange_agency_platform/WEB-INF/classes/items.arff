@@ -1,0 +1,19 @@
+@relation items
+
+@attribute name string
+@attribute brand string
+@attribute features string
+@attribute category {Electronics, Clothing, Furniture}
+
+@data
+'iPhone X', 'Apple', '8GB, Silver', Electronics
+'Top', 'Nike', 'Large, Black', Clothing
+'IKEA Sofa', 'IKEA', 'Sofa, Brown', Furniture
+'Console', 'Sony', 'gold, play station 5', Electronics
+'IKEA Bookcase', 'IKEA', 'Bookcase, white', Furniture
+'Shoes', 'Nike', 'Size 7, blue', Clothing
+'Jacket', 'Next', 'Medium, blue', Clothing
+'DFS Chair', 'DFS', 'chair, white', Furniture
+'Air Pods', 'Apple', 'white', Electronics
+'Samsung S20', 'Samsung', '6GB, green', Electronics
+'Samsung S10', 'Samsung', '3GB, black', Electronics
