@@ -20,7 +20,7 @@ public class Item {
     }
 
     // Parameterized constructor
-    public Item(int id, String category, String name, String brand, String attributes, String description, String condition, byte[] photo, int userId, Timestamp createdAt, Timestamp updatedAt) {
+    public Item(int id, String category, String name, String brand, String features, String description, String condition, byte[] photo, int userId, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.category = category;
         this.name = name;

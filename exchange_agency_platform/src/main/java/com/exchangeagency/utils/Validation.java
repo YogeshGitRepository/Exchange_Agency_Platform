@@ -5,30 +5,21 @@ import com.exchangeagency.model.Item;
 public class Validation {
 
     public static boolean isValidItem(Item item) {
-        if (item.getName() == null || item.getName().isEmpty()) {
+        if (item == null) {
             return false;
         }
-        if (item.getCategory() == null || item.getCategory().isEmpty()) {
-            return false;
-        }
-        if (item.getBrand() == null || item.getBrand().isEmpty()) {
-            return false;
-        }
-        if (item.getFeatures () == null || item.getFeatures().isEmpty()) {
-            return false;
-        }
-        if (item.getDescription() == null || item.getDescription().isEmpty()) {
-            return false;
-        }
-        if (item.getCondition() == null || item.getCondition().isEmpty()) {
-            return false;
-        }
-        if (item.getPhoto() == null || item.getPhoto().length == 0) {
-            return false;
-        }
-        if (item.getUserId() <= 0) {
-            return false;
-        }
-        return true;
+
+        return isNotNullOrEmpty(item.getName()) &&
+isNotNullOrEmpty(item.getCategory()) &&
+isNotNullOrEmpty(item.getBrand()) &&
+isNotNullOrEmpty(item.getFeatures()) &&
+isNotNullOrEmpty(item.getDescription()) &&
+isNotNullOrEmpty(item.getCondition()) &&
+item.getPhoto() != null && item.getPhoto().length > 0 &&
+item.getUserId() > 0;
+    }
+
+    private static boolean isNotNullOrEmpty(String value) {
+        return value != null && !value.isEmpty();
     }
 }

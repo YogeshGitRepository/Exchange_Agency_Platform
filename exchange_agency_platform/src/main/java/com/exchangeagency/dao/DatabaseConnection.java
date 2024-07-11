@@ -10,6 +10,10 @@ public class DatabaseConnection {
     private static Connection connection = null;
 
     public static Connection getConnection() {
+        if (connection != null) {
+            return connection;
+        }
+
         File dbFile = new File(URL.replace("jdbc:sqlite:", ""));
         if (!dbFile.exists()) {
             System.err.println("Database file does not exist: " + dbFile.getAbsolutePath());
@@ -17,21 +21,19 @@ public class DatabaseConnection {
         }
 
         try {
-            if (connection == null || connection.isClosed()) {
-                Class.forName("org.sqlite.JDBC");
-                connection = DriverManager.getConnection(URL);
-                if (connection != null) {
-                    System.out.println("Database connection established.");
-                } else {
-                    System.err.println("Failed to establish database connection.");
-                }
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection(URL);
+            if (connection != null) {
+                System.out.println("Database connection established.");
+            } else {
+                System.err.println("Failed to establish database connection.");
             }
         } catch (SQLException e) {
             System.err.println("SQLException: " + e.getMessage());
-            e.printStackTrace();
+            e.printStackTrace(); // This line prints the stack trace
         } catch (ClassNotFoundException e) {
             System.err.println("ClassNotFoundException: SQLite JDBC driver not found.");
-            e.printStackTrace();
+            e.printStackTrace(); // This line prints the stack trace
         }
         return connection;
     }

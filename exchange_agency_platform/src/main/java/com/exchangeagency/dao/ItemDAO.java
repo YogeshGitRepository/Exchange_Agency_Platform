@@ -11,19 +11,22 @@ import java.util.List;
 import com.exchangeagency.model.Item;
 
 public class ItemDAO {
-    private Connection connection;
+    private final Connection connection;
 
     public ItemDAO() {
-        connection = DatabaseConnection.getConnection();
+        this.connection = DatabaseConnection.getConnection();
     }
 
     public List<Item> getAllItems() {
         List<Item> items = new ArrayList<>();
-        String query = "SELECT * FROM Items";
+        if (connection == null) {
+            System.err.println("Database connection is not established.");
+            return items;
+        }
 
+        String query = "SELECT * FROM Items";
         try (Statement statement = connection.createStatement();
 ResultSet resultSet = statement.executeQuery(query)) {
-
             while (resultSet.next()) {
                 Item item = extractItemFromResultSet(resultSet);
                 items.add(item);
@@ -31,6 +34,7 @@ ResultSet resultSet = statement.executeQuery(query)) {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
         return items;
     }
 
@@ -51,8 +55,12 @@ ResultSet resultSet = statement.executeQuery(query)) {
     }
 
     public void addItem(Item item) {
-        String query = "INSERT INTO Items (category, name, brand, features, description, condition, photo, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        if (connection == null) {
+            System.err.println("Database connection is not established.");
+            return;
+        }
 
+        String query = "INSERT INTO Items (category, name, brand, features, description, condition, photo, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             setItemParameters(preparedStatement, item);
             preparedStatement.executeUpdate();
@@ -62,13 +70,16 @@ ResultSet resultSet = statement.executeQuery(query)) {
     }
 
     public Item getItemById(int id) {
+        if (connection == null) {
+            System.err.println("Database connection is not established.");
+            return null;
+        }
+
         Item item = null;
         String sql = "SELECT * FROM Items WHERE id = ?";
-
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-
             if (resultSet.next()) {
                 item = extractItemFromResultSet(resultSet);
             }
@@ -79,8 +90,12 @@ ResultSet resultSet = statement.executeQuery(query)) {
     }
 
     public void updateItem(Item item) {
-        String query = "UPDATE Items SET category = ?, name = ?, brand = ?, features = ?, description = ?, condition = ?, photo = ?, user_id = ? WHERE id = ?";
+        if (connection == null) {
+            System.err.println("Database connection is not established.");
+            return;
+        }
 
+        String query = "UPDATE Items SET category = ?, name = ?, brand = ?, features = ?, description = ?, condition = ?, photo = ?, user_id = ? WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             setItemParameters(preparedStatement, item);
             preparedStatement.setInt(9, item.getId());
@@ -91,8 +106,12 @@ ResultSet resultSet = statement.executeQuery(query)) {
     }
 
     public void deleteItem(int id) {
-        String query = "DELETE FROM Items WHERE id = ?";
+        if (connection == null) {
+            System.err.println("Database connection is not established.");
+            return;
+        }
 
+        String query = "DELETE FROM Items WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();

@@ -25,6 +25,9 @@ public class ListItemsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Item> items = itemDAO.getAllItems();
+        if (items.isEmpty()) {
+            request.setAttribute("noItemsMessage", "No items found in the database.");
+        }
         request.setAttribute("items", items);
         request.getRequestDispatcher("listItems.jsp").forward(request, response);
     }
