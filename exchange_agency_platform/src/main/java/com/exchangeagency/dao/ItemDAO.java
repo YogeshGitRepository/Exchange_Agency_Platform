@@ -11,18 +11,26 @@ import java.util.List;
 import com.exchangeagency.model.Item;
 
 public class ItemDAO {
-    private Connection connection;
+    private final Connection connection;
 
     public ItemDAO() {
         connection = DatabaseConnection.getConnection();
+        if (connection == null) {
+            System.out.println("Failed to establish database connection.");
+        }
     }
 
     public List<Item> getAllItems() {
         List<Item> items = new ArrayList<>();
         String query = "SELECT * FROM Items";
 
+        if (connection == null) {
+            System.out.println("Database connection is null in getAllItems()");
+            return items;
+        }
+
         try (Statement statement = connection.createStatement();
-ResultSet resultSet = statement.executeQuery(query)) {
+             ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
                 Item item = extractItemFromResultSet(resultSet);

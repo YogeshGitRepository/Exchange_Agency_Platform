@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:sqlite:c:/Users/Yogesh/Downloads/java/Exchange_Agency_Platform/exchange_agency_platform/exchangeagency.db";
+    private static final String URL = "jdbc:sqlite:c:/Users/olawale/Desktop/Exchange_Agency_Platform/exchange_agency_platform/exchangeagency.db";
     private static Connection connection = null;
 
     public static Connection getConnection() {
