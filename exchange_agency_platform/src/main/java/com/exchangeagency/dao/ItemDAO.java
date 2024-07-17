@@ -24,7 +24,7 @@ public class ItemDAO {
             return items;
         }
 
-        String query = "SELECT * FROM Items";
+        String query = "SELECT id, category, name, brand, features, description, condition, photo, userId, createdAt,updatedAt FROM Items";
         try (Statement statement = connection.createStatement();
 ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
